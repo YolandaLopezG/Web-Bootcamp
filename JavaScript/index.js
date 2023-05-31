@@ -20,10 +20,28 @@ function bmiCalculator(weight, height) {
 /* Love calculator */
 
 function loveCalculator() {
-    prompt("What is your name?");
-    prompt("What is their name?");
-  
-    var loveScore = Math.random() * 100;
-    loveScore = Math.floor(loveScore) + 1;
-    alert("Your love score is " + loveScore + "%");
+  prompt("What is your name?");
+  prompt("What is their name?");
+
+  var loveScore = Math.random() * 100;
+  loveScore = Math.floor(loveScore) + 1;
+  alert("Your love score is " + loveScore + "%");
+}
+
+/** Leap Year Challenge Exercise */
+
+function isLeap(year) {
+  if (year % 4 === 0) {
+    if (year % 100 === 0) {
+      if (year % 400 === 0) {
+        return "Leap year.";
+      } else {
+        return "Not leap year.";
+      }
+    } else {
+      return "Leap year.";
+    }
+  } else {
+    return "Not leap year.";
   }
+}
