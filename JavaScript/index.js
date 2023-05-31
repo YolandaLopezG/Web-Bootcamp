@@ -62,3 +62,29 @@ function FizzBuzz() {
   count++;
   console.log(output);
 }
+
+/** 99 Bottles challenge using while structure */
+
+function bottles() {
+  var numberOfBottles = 99;
+  var bottleWord = "bottles";
+  while (numberOfBottles >= 0) {
+    if (numberOfBottles === 1) {
+      bottleWord = "bottle";
+    }
+    console.log(numberOfBottles + " " + bottleWord + " of beer on the wall");
+    console.log(numberOfBottles + " " + bottleWord + " of beer,");
+    numberOfBottles--;
+    if (numberOfBottles >= 0) {
+      if (numberOfBottles === 1) {
+        bottleWord = "bottle";
+      }else{
+        bottleWord = "bottles";
+      }
+      console.log("Take one down, pass it around,");
+      console.log(numberOfBottles + " " + bottleWord + " of beer on the wall.");
+    } else {
+      console.log("No more bottles of beer on the wall.");
+    }
+  }
+}
