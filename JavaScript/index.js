@@ -78,7 +78,7 @@ function bottles() {
     if (numberOfBottles >= 0) {
       if (numberOfBottles === 1) {
         bottleWord = "bottle";
-      }else{
+      } else {
         bottleWord = "bottles";
       }
       console.log("Take one down, pass it around,");
@@ -87,4 +87,27 @@ function bottles() {
       console.log("No more bottles of beer on the wall.");
     }
   }
+}
+
+/* Fibonacci challenge */
+
+function Fibonacci(n) {
+  var output = [];
+  if (n === 1) {
+    output.push(0);
+  } else {
+    if (n === 2) {
+      output.push(0);
+      output.push(1);
+    } else {
+      output.push(0);
+      output.push(1);
+      for (let i = 0; i < n - 2; i++) {
+        var last = output[i];
+        var actual = output[i + 1];
+        output.push(last + actual);
+      }
+    }
+  }
+  return output;
 }
