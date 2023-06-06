@@ -9,7 +9,10 @@
 //$("h1").removeClass("big-title");
 
 // Add multiple css classes with jQuery
-$("h1").addClass("big-title margin");
+//$("h1").addClass("big-title margin");
 
 // Ask if has a class
-$("h1").hasClass("big-title");
+//$("h1").hasClass("big-title");
+
+// Change text
+$("h1").text("change text");
