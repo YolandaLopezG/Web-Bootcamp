@@ -1,4 +1,3 @@
-
 // Add css with jquery
 //$("h1").css("color", "red");
 
@@ -15,4 +14,16 @@
 //$("h1").hasClass("big-title");
 
 // Change text
-$("h1").text("change text");
+//$("h1").text("change text");
+
+//Add event listeners
+//Each time the button is click change color of h1
+$("button").click(function () {
+  $("h1").css("color", "purple");
+});
+
+//Change h1 is overwrite with the key is press
+$(document).keydown(function () {
+  $("h1").text(event.key);
+});
+
