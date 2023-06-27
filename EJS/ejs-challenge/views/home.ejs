@@ -6,7 +6,8 @@
 
 <% arrayPost.forEach(function(post) { %>
 <div>
-  <p><% console.log(post.title)%></p>
+  <h1><%= post.title %></h1>
+  <p><%= post.content %></p>
 </div>
 <% }) %> 
 <%- include('partials/footer'); %>
