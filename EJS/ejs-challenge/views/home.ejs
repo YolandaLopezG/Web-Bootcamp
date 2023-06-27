@@ -4,6 +4,10 @@
 
 <p><%= startingContent %></p>
 
-<% console.log(arrayPost) %>
+<% for (let i = 0; i < arrayPost.length; i++) { %>
+<div>
+  <p><% console.log(arrayPost[i].title)%></p>
+</div>
+<% } %> 
 
 <%- include('partials/footer'); %>
