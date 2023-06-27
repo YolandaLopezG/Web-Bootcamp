@@ -4,10 +4,9 @@
 
 <p><%= startingContent %></p>
 
-<% for (let i = 0; i < arrayPost.length; i++) { %>
+<% arrayPost.forEach(function(post) { %>
 <div>
-  <p><% console.log(arrayPost[i].title)%></p>
+  <p><% console.log(post.title)%></p>
 </div>
-<% } %> 
-
+<% }) %> 
 <%- include('partials/footer'); %>
