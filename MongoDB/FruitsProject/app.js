@@ -63,17 +63,17 @@ const banana = new Fruit({
 
 // **************   FIND DATA  ************************************************
 
-Fruit.insertMany([kiwi, orange, banana])
+/*Fruit.insertMany([kiwi, orange, banana])
   .then(function () {
     console.log("Succesfully saved all the fruits to fruitsDB");
   })
   .catch(function (err) {
     console.log(err);
-  });
+  });*/
 
 // **************   FIND DATA  ************************************************
 
-Fruit.find({})
+/*Fruit.find({})
   .then(function (fruits) {
     fruits.forEach((fruit) => {
       console.log(fruit.name);
@@ -81,7 +81,7 @@ Fruit.find({})
   })
   .catch(function (err) {
     console.log(err);
-  });
+  });*/
 
 // ********************* UPDATE ***********************************************************************
 
@@ -112,21 +112,39 @@ Fruit.deleteMany({ name: "Apple" })
 
 // ********************* EXERCISE PEOPLE  ***********************************************************************
 //
-/*//Creating Person schema
+//Creating Person schema
 const personSchema = new mongoose.Schema({
   name: String,
   age: Number,
+  favouriteFruit: fruitSchema
 });
 
 //creating person model
 const Person = mongoose.model("Person", personSchema);
 
-//insert data
-const person = new Person({
-  name: "John",
-  age: 37,
+const cucumber = new Fruit({
+  name: "Cucumber",
+  rating: 8,
+  review: "Is not a fruit.",
 });
 
-person.save();*/
+cucumber.save();
+
+Person.updateOne({name: "John" }, {favouriteFruit: cucumber})
+  .then(function () {
+    console.log('Updated')
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
+//insert data
+/*const person = new Person({
+  name: "Amy",
+  age: 12,
+  favouriteFruit: pinneapple
+});*/
+
+//person.save();
 
 // ********************************************************************************************
