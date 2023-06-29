@@ -1,29 +1,150 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", true);
 
-// Replace the placeholder with your Atlas connection string
-const uri = "mongodb://127.0.0.1:27017";
+//Mogoose connection
+mongoose
+  .connect("mongodb://127.0.0.1:27017/fruitsDB", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log(`CONNECTED TO MONGO!`);
+  })
+  .catch((err) => {
+    console.log(`OH NO! MONGO CONNECTION ERROR!`);
+    console.log(err);
+  });
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri,  {
-        serverApi: {
-            version: ServerApiVersion.v1,
-            strict: true,
-            deprecationErrors: true,
-        }
-    }
-);
+//creating fruit schema
+const fruitSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "Please check your data entry: name not specified"],
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10,
+  },
+  review: String,
+});
 
-async function run() {
-  try {
-    // Connect the client to the server (optional starting in v4.7)
-    await client.connect();
+//creating model
+const Fruit = mongoose.model("Fruit", fruitSchema);
 
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+// ***********  CREATING DATA  ************************************
+//
+const fruit = new Fruit({
+  name: "Peach",
+  rating: 6,
+  review: "Good but are betters.",
+});
+
+/*const orange = new Fruit({
+  name: "Orange",
+  rating: 7,
+  review: "Bad memories.",
+});
+
+const kiwi = new Fruit({
+  name: "Kiwi",
+  rating: 5,
+  review: "Too expensive.",
+});
+
+const banana = new Fruit({
+  name: "Banana",
+  rating: 8,
+  review: "Good flavor.",
+});
+
+//storing data*/
+//fruit.save();
+
+// **************   FIND DATA  ************************************************
+
+/*Fruit.insertMany([kiwi, orange, banana])
+  .then(function () {
+    console.log("Succesfully saved all the fruits to fruitsDB");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });*/
+
+// **************   FIND DATA  ************************************************
+
+/*Fruit.find({})
+  .then(function (fruits) {
+    fruits.forEach((fruit) => {
+      console.log(fruit.name);
+    });
+  })
+  .catch(function (err) {
+    console.log(err);
+  });*/
+
+// ********************* UPDATE ***********************************************************************
+
+/*Fruit.updateOne({_id: "649dbae63170761a293863b3" }, {name: "Grapes"})
+  .then(function () {
+    console.log('Updated')
+  })
+  .catch(function (err) {
+    console.log(err);
+  });*/
+
+// ********************* DELETE ***********************************************************************
+/*Fruit.deleteOne({ _id: "649dbaa7631e377bf5c9ddd4" })
+  .then(function () {
+    console.log("Deleted");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
+Fruit.deleteMany({ name: "Apple" })
+  .then(function () {
+    console.log("All records were deleted");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });*/
+
+// ********************* EXERCISE PEOPLE  ***********************************************************************
+//
+//Creating Person schema
+const personSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  favouriteFruit: fruitSchema
+});
+
+//creating person model
+const Person = mongoose.model("Person", personSchema);
+
+const cucumber = new Fruit({
+  name: "Cucumber",
+  rating: 8,
+  review: "Is not a fruit.",
+});
+
+cucumber.save();
+
+Person.updateOne({name: "John" }, {favouriteFruit: cucumber})
+  .then(function () {
+    console.log('Updated')
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
+//insert data
+/*const person = new Person({
+  name: "Amy",
+  age: 12,
+  favouriteFruit: pinneapple
+});*/
+
+//person.save();
+
+// ********************************************************************************************
