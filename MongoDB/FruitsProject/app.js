@@ -17,22 +17,30 @@ mongoose
 
 //creating fruit schema
 const fruitSchema = new mongoose.Schema({
-  name: String,
-  rating: Number,
+  name: {
+    type: String,
+    required: [true, "Please check your data entry: name not specified"],
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10,
+  },
   review: String,
 });
 
 //creating model
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
-//creating documents (data)
+// ***********  CREATING DATA  ************************************
+//
 const fruit = new Fruit({
-  name: "Apple",
-  rating: 7,
-  review: "Pretty solid as a fruit.",
+  name: "Peach",
+  rating: 6,
+  review: "Good but are betters.",
 });
 
-const orange = new Fruit({
+/*const orange = new Fruit({
   name: "Orange",
   rating: 7,
   review: "Bad memories.",
@@ -50,7 +58,12 @@ const banana = new Fruit({
   review: "Good flavor.",
 });
 
-/*Fruit.insertMany([kiwi, orange, banana])
+//storing data*/
+//fruit.save();
+
+// **************   FIND DATA  ************************************************
+
+Fruit.insertMany([kiwi, orange, banana])
   .then(function () {
     console.log("Succesfully saved all the fruits to fruitsDB");
   })
@@ -58,20 +71,47 @@ const banana = new Fruit({
     console.log(err);
   });
 
-//storing data
-fruit.save();*/
+// **************   FIND DATA  ************************************************
 
- Fruit.find({})
+Fruit.find({})
   .then(function (fruits) {
-    console.log(fruits);
+    fruits.forEach((fruit) => {
+      console.log(fruit.name);
+    });
   })
   .catch(function (err) {
     console.log(err);
   });
 
+// ********************* UPDATE ***********************************************************************
 
-// ********************************************************************************************
-// EXERCISE
+/*Fruit.updateOne({_id: "649dbae63170761a293863b3" }, {name: "Grapes"})
+  .then(function () {
+    console.log('Updated')
+  })
+  .catch(function (err) {
+    console.log(err);
+  });*/
+
+// ********************* DELETE ***********************************************************************
+/*Fruit.deleteOne({ _id: "649dbaa7631e377bf5c9ddd4" })
+  .then(function () {
+    console.log("Deleted");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
+Fruit.deleteMany({ name: "Apple" })
+  .then(function () {
+    console.log("All records were deleted");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });*/
+
+// ********************* EXERCISE PEOPLE  ***********************************************************************
+//
 /*//Creating Person schema
 const personSchema = new mongoose.Schema({
   name: String,
