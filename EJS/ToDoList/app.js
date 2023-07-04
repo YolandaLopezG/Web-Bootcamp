@@ -1,19 +1,56 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const date = require(__dirname + "/date.js");
+const mongoose = require("mongoose");
 
 const app = express();
-
-const items = ["Buy food", "Cook food", "Eat food"];
-const workItems = [];
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+mongoose
+  .connect("mongodb://127.0.0.1:27017/toDoListDB", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log(`CONNECTED TO MONGO!`);
+  })
+  .catch((err) => {
+    console.log(`OH NO! MONGO CONNECTION ERROR!`);
+    console.log(err);
+  });
+
+const itemsSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+});
+
+const Item = mongoose.model("Item", itemsSchema);
+
+const item1 = new Item({
+  name: "Welcome to the to do list",
+});
+const item2 = new Item({
+  name: "Hit + to add a new item",
+});
+const item3 = new Item({
+  name: "Enjoy your to do list",
+});
+
+const defaultItems = [item1, item2, item3];
+
+Item.insertMany(defaultItems)
+  .then(function () {
+    console.log("Succesfully saved all the items");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
 app.get("/", function (req, res) {
-  const day = date.getDate();
-  res.render("list", { listTitle: day, newListItems: items });
+  res.render("list", { listTitle: "Today", newListItems: items });
 });
 
 app.post("/", function (req, res) {
