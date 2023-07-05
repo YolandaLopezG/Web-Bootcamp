@@ -41,16 +41,25 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
-Item.insertMany(defaultItems)
-  .then(function () {
-    console.log("Succesfully saved all the items");
-  })
-  .catch(function (err) {
-    console.log(err);
-  });
-
 app.get("/", function (req, res) {
-  res.render("list", { listTitle: "Today", newListItems: items });
+  Item.find({})
+    .then(function (items) {
+      if (items.length === 0) {
+        Item.insertMany(defaultItems)
+          .then(function () {
+            console.log("Succesfully saved all the items");
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+          res.redirect("/");
+      } else {
+        res.render("list", { listTitle: "Today", newListItems: items });
+      }
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
 });
 
 app.post("/", function (req, res) {
