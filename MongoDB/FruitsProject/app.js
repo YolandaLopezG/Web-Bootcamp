@@ -61,7 +61,7 @@ const banana = new Fruit({
 //storing data*/
 //fruit.save();
 
-// **************   FIND DATA  ************************************************
+// **************   INSERT DATA  ************************************************
 
 /*Fruit.insertMany([kiwi, orange, banana])
   .then(function () {
