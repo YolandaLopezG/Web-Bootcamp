@@ -31,15 +31,31 @@ const articleSchema = new mongoose.Schema({
 
 const Article = mongoose.model("Article", articleSchema);
 
-app.get("/articles", function (req,res) {
-    Article.find({})
+app.get("/articles", function (req, res) {
+  Article.find({})
     .then(function (articles) {
-      res.send(articles)
+      res.send(articles);
     })
     .catch(function (err) {
       console.log(err);
-    }); 
-})
+    });
+});
+
+app.post("/articles", function (req, res) {
+  const newArticle = new Article({
+    title: req.body.title,
+    content: req.body.content,
+  });
+
+  newArticle
+    .save()
+    .then(function () {
+      res.send("Successfully added a new article.");
+    })
+    .catch(function (err) {
+      res.send(err);
+    });
+});
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
