@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
-const _ = require("lodash");
 
 const app = express();
 
@@ -31,6 +30,16 @@ const articleSchema = new mongoose.Schema({
 });
 
 const Article = mongoose.model("Article", articleSchema);
+
+app.get("/articles", function (req,res) {
+    Article.find({})
+    .then(function (articles) {
+      res.send(articles)
+    })
+    .catch(function (err) {
+      console.log(err);
+    }); 
+})
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
