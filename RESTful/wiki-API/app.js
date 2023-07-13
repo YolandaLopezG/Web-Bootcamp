@@ -106,6 +106,15 @@ app
       .catch(function (err) {
         res.send(err);
       });
+  })
+  .delete(function (req, res) {
+    Article.deleteOne({ title: req.params.articleTitle })
+      .then(function () {
+        res.send("Record successfully deleted");
+      })
+      .catch(function (err) {
+        res.send(err);
+      });
   });
 
 app.listen(3000, function () {
