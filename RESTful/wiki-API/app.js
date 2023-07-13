@@ -71,19 +71,33 @@ app
 
 // FOR SPECIFIC ARTICLES
 
-app.route("/articles/:articleTitle").get(function (req, res) {
-  Article.findOne({ title: req.params.articleTitle })
-    .then(function (foundArticle) {
-      if (foundArticle) {
-        res.send(foundArticle);
-      } else {
-        res.send("No articles matching");
-      }
-    })
-    .catch(function (err) {
-      res.send(err);
-    });
-});
+app
+  .route("/articles/:articleTitle")
+  .get(function (req, res) {
+    Article.findOne({ title: req.params.articleTitle })
+      .then(function (foundArticle) {
+        if (foundArticle) {
+          res.send(foundArticle);
+        } else {
+          res.send("No articles matching");
+        }
+      })
+      .catch(function (err) {
+        res.send(err);
+      });
+  })
+  .put(function (req, res) {
+    Article.updateOne(
+      { title: req.params.articleTitle },
+      { title: req.body.title, content: req.body.content }
+    )
+      .then(function () {
+        res.send("Article updated");
+      })
+      .catch(function (err) {
+        res.send(err);
+      });
+  });
 
 app.listen(3000, function () {
   console.log("Server started on port 3000");
